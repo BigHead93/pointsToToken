@@ -1,0 +1,19 @@
+{
+  "name": "pointstotoken",
+  "version": "1.0.0",
+  "description": "points to token",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BigHead93/pointsToToken.git"
+  },
+  "author": "emma",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BigHead93/pointsToToken/issues"
+  },
+  "homepage": "https://github.com/BigHead93/pointsToToken#readme"
+}
