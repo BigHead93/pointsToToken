@@ -11,6 +11,7 @@ http.createServer(function(request, response){
 	try{
 		var pathname = url.parse(request.url).pathname.substr(1);
 		if(pathname !== 'favicon.ico'){
+			console.log("-----------------------------------------------------");
 			console.log('request for ' + pathname + ' received');
 		}
 
