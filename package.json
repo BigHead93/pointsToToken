@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/BigHead93/pointsToToken/issues"
   },
-  "homepage": "https://github.com/BigHead93/pointsToToken#readme"
+  "homepage": "https://github.com/BigHead93/pointsToToken#readme",
+  "dependencies": {
+    "redis": "^2.8.0"
+  }
 }
