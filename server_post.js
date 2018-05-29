@@ -34,7 +34,7 @@ app.post('/transactionStatus', function(req, res) {
 		if(typeof value == 'object'){
 			res.send(value);
 		}else{
-			res.send(null);
+			res.send("new or not exist");
 		}
 	})
 })
@@ -65,7 +65,7 @@ worker.on('exit', function(worker, code, signal) {
 worker.send('start');
 setInterval(() => {
 	worker.send('start');
-}, 5 * 1000 * 60)
+}, 0.5 * 1000 * 60)
 
 
 
