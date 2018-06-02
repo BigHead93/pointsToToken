@@ -100,28 +100,51 @@ function transfer(_body) {
 					web3.eth.sendSignedTransaction('0x' + serializedTx.toString('hex'),
 						function(err, hash) {
 							// console.log('serializedTx' + serializedTx.toString('hex'));
+					        console.log("TxHash: " + hash);
 						    if (!err) {
-						        console.log("TxHash: " + hash);
-						        redisUtils.set_progress_transaction(_body.address, _body.creationTime, hash);
-						        redisUtils.delete_new_transaction(_body.address, _body.creationTime);
+						        // redisUtils.set_progress_transaction(_body.address, _body.creationTime, hash);
+						        // redisUtils.get_progress_transaction(_body.address, _body.creationTime).then(function(err, value){
+						        // 	if(err){
+						        // 		console.log('get_progress_transaction error: ' + err);
+						        // 	}else{
+						        // 		if(value == null){
+
+						        // 		}
+						        // 	}
+						        // })
+						        // redisUtils.delete_new_transaction(_body.address, _body.creationTime);
+						        setProgress(_body.address, _body.creationTime, hash);
 								console.log("Send transaction success");
 						    } 
 						    else {
-						    	redisUtils.set_finish_transaction(_body.address, _body.creationTime, 'Failed');
-						    	redisUtils.delete_new_transaction(_body.address, _body.creationTime);
-						        console.log(err);
-
+						    	console.log()
+						    	// redisUtils.set_finish_transaction(_body.address, _body.creationTime, 'Failed');
+						    	// redisUtils.delete_new_transaction(_body.address, _body.creationTime);
+						        console.log("sendSignedTransaction Error: " + err);
 						    }
 						});
 				})
 		}
 	});
 }
+function setProgress(_address, _creationTime, _hash){
+	redisUtils.set_progress_transaction(_address, _creationTime, _hash);
+    redisUtils.get_progress_transaction(_address, _creationTime).then(function(err, value){
+    	if(err){
+    		console.log('get_progress_transaction error: ' + err);
+    	}else{
+    		if(value == null){
+    			setProgress(_address, _creationTime);
+    		}else{
+			    redisUtils.delete_new_transaction(_address, _creationTime);
+    		}
+    	}
+    })
+}
 
-
-function toHex32(value){
+function toHex32(_value){
 	let zeros = "00000000000000000000000000000000";
-	let valueHex = value.toString(16);
+	let valueHex = _value.toString(16);
 	let len0 = 32 - valueHex.length;
 	return zeros.substr(0, len0) + valueHex;
 }
