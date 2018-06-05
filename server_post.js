@@ -1,7 +1,7 @@
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
-var ETH = require('./coinToToken.js');
+var ETH = require('./lib/ETH.js');
 var redisUtils = require('./lib/redisUtils'); 
 var query = require('./lib/query');
 
@@ -12,24 +12,32 @@ app.use(bodyParser.json());
 
 app.post('/coinToToken', function (req, res) {
 	var body = req.body;
-	// console.log(body);
-	console.log('Get new transaction %s %s %s %s', body.user, body.address, body.amount, body.creationTime);
-	redisUtils.set_new_transaction(body.user, 
+	var result = {
+		return_code: null
+	};
+	console.log('Get new transaction %s %s %s %s %s', 
+						body.serialId, body.user, body.address, body.amount, body.creationTime);
+	var verifyResult = ETH.verifyTransferInfo(body);
+	if(verifyResult !== "true"){
+		result.return_code = verifyResult;
+		res.send(result);
+	}else{
+		redisUtils.set_new_transaction(body.serialId,
+									body.user, 
 									body.address, 
 									body.amount, 
 									body.creationTime);
-	// redisUtils.get_new_transaction(body.address, body.creationTime);
-	ETH.coinToToken(body);
-	var result = {
-		return_code: 'OK'
+		// redisUtils.get_new_transaction(body.address, body.creationTime);
+		ETH.transfer(body);
+		result.return_code = "true";
+		res.send(result);
 	}
-	res.send(result);
 })
 
-app.post('/transactionStatus', function(req, res) {
+app.post('/queryTransactionStatus', function(req, res) {
 	var body = req.body;
 	// console.log(body);
-	console.log('Query transaction status: %s %s', body.address, body.creationTime);
+	console.log('Query transaction status: %s %s', body.serialId, body.address);
 	query.queryStatus(body.address, body.creationTime, (value) => {
 		if(typeof value == 'object'){
 			res.send(value);
@@ -65,7 +73,7 @@ worker.on('exit', function(worker, code, signal) {
 worker.send('start');
 setInterval(() => {
 	worker.send('start');
-}, 0.5 * 1000 * 60)
+}, 1 * 1000 * 60)
 
 
 
