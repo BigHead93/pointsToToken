@@ -28,7 +28,7 @@ app.post('/coinToToken', function (req, res) {
 									body.amount, 
 									body.creationTime);
 		// redisUtils.get_new_transaction(body.address, body.creationTime);
-		ETH.transfer(body);
+		ETH.transfer(body.serialId, body.address, body.amount);
 		result.return_code = "true";
 		res.send(result);
 	}
