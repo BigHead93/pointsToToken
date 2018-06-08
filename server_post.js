@@ -13,13 +13,15 @@ app.use(bodyParser.json());
 app.post('/coinToToken', function (req, res) {
 	var body = req.body;
 	var result = {
-		return_code: null
+		code: 0,
+		message: null
 	};
 	console.log('Get new transaction %s %s %s %s %s', 
 						body.serialId, body.user, body.address, body.amount, body.creationTime);
 	var verifyResult = ETH.verifyTransferInfo(body);
-	if(verifyResult !== "true"){
-		result.return_code = verifyResult;
+	if(verifyResult == false){
+		result.code = 0;
+		result.message = verifyResult;
 		res.send(result);
 	}else{
 		redisUtils.set_new_transaction(body.serialId,
@@ -29,20 +31,37 @@ app.post('/coinToToken', function (req, res) {
 									body.creationTime);
 		// redisUtils.get_new_transaction(body.address, body.creationTime);
 		ETH.transfer(body.serialId, body.address, body.amount);
-		result.return_code = "true";
+		result.code = 1;
+		result.message = "Get request successs, start transfer.";
 		res.send(result);
 	}
+})
+
+app.post('/verifyIfAddressValid', function (req, res) {
+	var body = req.body;
+	var result = {
+		code: 0,
+		message: null
+	};
+	console.log(body.address);
+	var verifyResult = ETH.verifyIfAddressValid(body.address);
+	console.log(verifyResult);
+	result.code = verifyResult == true ? 1 : 0;
+	result.message = verifyResult;
+	console.log
+	console.log(result.message);
+	res.send(result);
 })
 
 app.post('/queryTransactionStatus', function(req, res) {
 	var body = req.body;
 	// console.log(body);
 	console.log('Query transaction status: %s %s', body.serialId, body.address);
-	query.queryStatus(body.address, body.creationTime, (value) => {
+	query.queryStatus(body.serialId, body.address, (value) => {
 		if(typeof value == 'object'){
 			res.send(value);
 		}else{
-			res.send("new or not exist");
+			res.send("null");
 		}
 	})
 })
