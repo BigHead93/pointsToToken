@@ -1,0 +1,59 @@
+{
+    "appenders": {
+      "console": {
+        "type": "console"
+      },
+      "http": {
+        "type": "logLevelFilter",
+        "appender": "trace",
+        "level": "trace",
+        "maxLevel": "trace",
+        "numBackups": 3
+      },
+      "info": {
+        "type": "dateFile",
+        "filename": "log/app-info.log",
+        "pattern": "-yyyy-MM-dd.log",
+        "numBackups": 3,
+        "layout": {
+          "type": "pattern",
+          "pattern": "[%d{ISO8601}][%5p  %z  %c] %m"
+        },
+        "compress": true
+      },
+      "maxInfo": {
+        "type": "logLevelFilter",
+        "appender": "info",
+        "level": "debug",
+        "maxLevel": "info"
+      },
+      "error": {
+        "type": "dateFile",
+        "filename": "log/app-error.log",
+        "pattern": ".yyyy-MM-dd.log",
+        "numBackups": 3,
+        "layout": {
+          "type": "pattern",
+          "pattern": "[%d{ISO8601}][%5p  %z  %c] %m"
+        },
+        "compress": true
+      },
+      "minError": {
+        "type": "logLevelFilter",
+        "appender": "error",
+        "level": "error"
+      }
+    },
+    "categories": {
+      "default": {
+        "appenders": [
+          "console",
+          "http",
+          "maxInfo",
+          "minError"
+        ],
+        "level": "all"
+      }
+    }
+  }
+

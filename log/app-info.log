@@ -1,0 +1,20 @@
+[2018-06-11T09:56:33.246][ INFO  73819  index] Get new transaction 1233 emma 0x34c95D243C47aC6a77E897188F019ff1AcfDABca 100 20180607_163000
+[2018-06-11T09:57:33.489][ INFO  73924  index] Get new transaction 12333 emma 0x34c95D243C47aC6a77E897188F019ff1AcfDABca 100 20180607_163000
+[2018-06-11T10:02:01.771][ INFO  73957  index] Get new transaction 12333 emma 0x34c95D243C47aC6a77E897188F019ff1AcfDABca 100 20180607_163000
+[2018-06-11T10:37:18.776][ INFO  75068  index] Get new transaction 12333 emma 0x34c95D243C47aC6a77E897188F019ff1AcfDABca 100 20180607_163000
+[2018-06-11T10:37:36.520][ INFO  75075  index] Get new transaction 12333 emma 0x34c95D243C47aC6a77E897188F019ff1AcfDABca 100 20180607_163000
+[2018-06-11T11:08:07.295][ INFO  75314  index] Get new transaction 12334 emma 0x34c95D243C47aC6a77E897188F019ff1AcfDABca 100 20180607_163000
+[2018-06-11T11:08:07.298][ INFO  75314  redisUtils] set_new_transaction: 12334
+[2018-06-11T11:09:16.695][ INFO  75332  index] Get new transaction 12334 emma 0x34c95D243C47aC6a77E897188F019ff1AcfDABca 100 20180607_163000
+[2018-06-11T11:09:16.698][ INFO  75332  redisUtils] set_new_transaction: 12334
+[2018-06-11T11:09:20.495][ INFO  75332  redisUtils] set_progress_transaction: 12334 - TxHash: 0x31e63795d0c4697bce3de17a4ffb9680c043306b8b5d26ce2e1fc1f7ab7ed9ec
+[2018-06-11T11:09:20.496][ INFO  75332  redisUtils] set_progress_transaction: 12334 - TxHash: 0x31e63795d0c4697bce3de17a4ffb9680c043306b8b5d26ce2e1fc1f7ab7ed9ec
+[2018-06-11T11:09:20.497][ INFO  75332  redisUtils] delete_new_transaction: 12334
+[2018-06-11T11:12:25.013][ INFO  75366  redisUtils] set_finish_transaction: 12334 - TxHash: 0x31e63795d0c4697bce3de17a4ffb9680c043306b8b5d26ce2e1fc1f7ab7ed9ec - status: Completed
+[2018-06-11T11:16:05.765][ INFO  75386  index] Get new transaction 12334 emma 0x34c95D243C47aC6a77E897188F019ff1AcfDABca 100 20180607_163000
+[2018-06-11T11:16:05.767][ INFO  75386  redisUtils] set_new_transaction: 12334
+[2018-06-11T11:16:08.439][ INFO  75386  redisUtils] set_progress_transaction: 12334 - TxHash: 0x1804aae2de5e8a46412674feef93354cc497bdc014060ddc2685f51554fa7eab
+[2018-06-11T11:16:08.440][ INFO  75386  redisUtils] set_progress_transaction: 12334 - TxHash: 0x1804aae2de5e8a46412674feef93354cc497bdc014060ddc2685f51554fa7eab
+[2018-06-11T11:16:08.441][ INFO  75386  redisUtils] delete_new_transaction: 12334
+[2018-06-11T11:16:46.440][ INFO  75387  redisUtils] set_finish_transaction: 12334 - TxHash: 0x1804aae2de5e8a46412674feef93354cc497bdc014060ddc2685f51554fa7eab - status: Completed
+[2018-06-11T11:16:46.440][ INFO  75387  redisUtils] delete_progress_transaction: 12334
