@@ -6,8 +6,8 @@ var redisUtils = require('./lib/redisUtils');
 var query = require('./lib/query');
 
 var log4js = require('log4js');
-log4js.configure('./lib/log4js.json');
-var logger = require('log4js').getLogger('index');
+log4js.configure('./config/log4js.json');
+var logger = require('log4js').getLogger("server");
 
 const cluster = require('cluster');
 
@@ -34,7 +34,7 @@ app.post('/coinToToken', function (req, res) {
 									body.amount, 
 									body.creationTime);
 		// redisUtils.get_new_transaction(body.address, body.creationTime);
-		ETH.transfer(body.serialId, body.address, body.amount, 0);
+		ETH.transfer(body.serialId, body.address, body.amount);
 		result.code = 1;
 		result.message = "Get request successs, start transfer.";
 		res.send(result);
@@ -47,20 +47,19 @@ app.post('/verifyIfAddressValid', function (req, res) {
 		code: 0,
 		message: null
 	};
-	console.log(body.address);
 	var verifyResult = ETH.verifyIfAddressValid(body.address);
-	console.log(verifyResult);
+	// console.log(verifyResult);
 	result.code = verifyResult == true ? 1 : 0;
 	result.message = verifyResult;
-	console.log(result.message);
-	logger.info("verifyIfAddressValid: " + body.address + " is: " + verifyResult);
+	// console.log(result.message);
+	logger.info("verifyIfAddressValid: " + body.address + " - " + verifyResult);
 	res.send(result);
 })
 
 app.post('/queryTransactionStatus', function(req, res) {
 	var body = req.body;
 	// console.log(body);
-	console.log('Query transaction status: %s %s', body.serialId, body.address);
+	logger.info('queryTransactionStatus: %s - %s', body.serialId, body.address);
 	query.queryStatus(body.serialId, body.address, (value) => {
 		logger.info("queryTransactionStatus: serialId: " + body.serialId + " is: " + value);
 		if(typeof value == 'object'){
