@@ -20,8 +20,6 @@ app.post('/coinToToken', function (req, res) {
 		code: 0,
 		message: null
 	};
-	console.log('Get new transaction %s %s %s %s %s', 
-						body.serialId, body.user, body.address, body.amount, body.creationTime);
 	logger.info('Get new transaction %s %s %s %s %s', 
 						body.serialId, body.user, body.address, body.amount, body.creationTime);
 	var verifyResult = ETH.verifyTransferInfo(body);
@@ -36,7 +34,7 @@ app.post('/coinToToken', function (req, res) {
 									body.amount, 
 									body.creationTime);
 		// redisUtils.get_new_transaction(body.address, body.creationTime);
-		ETH.transfer(body.serialId, body.address, body.amount);
+		ETH.transfer(body.serialId, body.address, body.amount, 0);
 		result.code = 1;
 		result.message = "Get request successs, start transfer.";
 		res.send(result);
